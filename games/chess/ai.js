@@ -1,6 +1,7 @@
 // This is where you build your AI for the Chess game.
 
 const BaseAI = require(`${__basedir}/joueur/baseAI`);
+const chessjs = require('chess.js');
 
 // <<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 // any additional requires you want can be required here safely between creer runs
@@ -38,7 +39,7 @@ class AI extends BaseAI {
    */
   start() {
     // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // pass
+    this.chess = new chessjs.Chess();
     // <<-- /Creer-Merge: start -->>
   }
 
@@ -71,7 +72,24 @@ class AI extends BaseAI {
    */
   runTurn() {
     // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // Put your game logic here for runTurn
+    this.chess.load(this.game.fen);
+    console.log(this.chess.ascii());
+
+    // get all valid moves
+    let moves = this.chess.moves({verbose: true});
+    // and get a single valid move from it
+    let move = moves[Math.floor(Math.random()*moves.length)];
+
+    console.log(`My move: ${move.san}`);
+
+    for (let piece of this.player.pieces) {
+      if (piece.file + piece.rank === move.from) {
+        piece.move(move.to[0], move.to[1], "Queen");
+        break;
+      }
+    }
+
+    console.log('Done...\n--------------------------------------------');
     return true;
     // <<-- /Creer-Merge: runTurn -->>
   }
