@@ -30,7 +30,7 @@ class AI extends BaseAI {
    */
   getName() {
     // <<-- Creer-Merge: getName -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    return 'Chess JavaScript Player';
+    return 'Random Valid Moves';
     // <<-- /Creer-Merge: getName -->>
   }
 
